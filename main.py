@@ -31,14 +31,6 @@ class PriceDescendingStrategy(SortingStrategy):
     def sort(self):
         return sorted(self.products, key=lambda x: x["price"], reverse=True)
     
-# Adapter pattern
-class ProductsAdapter:
-    def __init__(self, products):
-        self.products = products
-
-    def apply_sorting_strategy(self, strategy):
-        return strategy.sort()
-    
 # Builder Pattern
 class ProductsBuilder:
     def __init__(self, products):
