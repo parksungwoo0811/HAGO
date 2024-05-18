@@ -63,7 +63,7 @@ class ProductFilter:
 
     def filter_products(self, filter_key, filter_value):
         if filter_key == "category":
-            return list(filter(lambda x: x["main-category"] == filter_value, self.products))
+            return list(filter(lambda x: x["category"] == filter_value, self.products))
         elif filter_key == "season":
             return list(filter(lambda x: filter_value in x["season"], self.products))
         else:
