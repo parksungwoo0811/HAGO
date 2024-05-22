@@ -117,7 +117,7 @@ def main():
             print("4. 가격 내림차순")
             sub_choice = int(input("선택: "))
             sort_key = sort_key_list[sub_choice-1]
-                       
+
         elif choice == 6:
             filter_key = "season"
             filter_value = input("시즌을 선택하세요 (봄, 여름, 가을, 겨울): ")
@@ -133,7 +133,7 @@ def main():
 
         print("정렬된 상품 목록:")
         for product in sorted_products:
-            print(product)
+            print(f"상품명: {product['name']}, 가격: {product['price']}, 카테고리: {product['category']}, 계절:  {', '.join(product['season'])}")
 
 if __name__ == "__main__":
     main()
