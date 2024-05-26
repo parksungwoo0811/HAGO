@@ -82,6 +82,18 @@ class ProductFilter:
         else:
             return filtered_products
 
+def get_display_width(text):
+    # 한글 글자는 2의 폭을 차지하므로, 각 글자를 검사하여 전체 폭을 계산
+    return sum(2 if ord(char) > 127 else 1 for char in text)
+
+def pad_to_fixed_width(text, width):
+    # 원하는 고정 너비에 맞추기 위해 필요한 공백을 계산하고 추가
+    text_width = get_display_width(text)
+    if text_width < width:
+        padding = ' ' * (width - text_width)
+        return text + padding
+    return text
+
 def main():
     filter_strategy = ProductFilter(products)
     sort_key_list = ["name_asc", "name_desc", "price_asc", "price_desc"]
@@ -130,10 +142,28 @@ def main():
             sort_key = sort_key_list[sub_choice-1]
 
         sorted_products = filter_strategy.filter_and_sort(filter_key, filter_value, sort_key)
+        
+        # 고정된 폭 설정
+        name_width = 30
+        price_width = 20
+        category_width = 20
+        season_width = 20
 
-        print("정렬된 상품 목록:")
+        # 출력 헤더
+        header = f"{pad_to_fixed_width('상품명', name_width)}|{pad_to_fixed_width('가격', price_width)}|{pad_to_fixed_width('카테고리', category_width)}|{pad_to_fixed_width('계절', season_width)}"
+        print("\n정렬된 상품 목록:")
+        print(header)
+        print("-" * (name_width + price_width + category_width + season_width + 3))  # 구분자 '|' 기호를 고려하여 길이 조정
+
+        # 상품 목록 출력
         for product in sorted_products:
-            print(f"상품명: {product['name']}, 가격: {product['price']}, 카테고리: {product['category']}, 계절:  {', '.join(product['season'])}")
+            name = pad_to_fixed_width(product['name'], name_width)
+            price = pad_to_fixed_width(str(product['price']), price_width)
+            category = pad_to_fixed_width(product['category'], category_width)
+            season = pad_to_fixed_width('.'.join(product['season']), season_width)
+
+            # 모든 항목을 포맷 문자열을 사용하여 고정된 너비로 출력
+            print(f"{name}|{price}|{category}|{season}")
 
 if __name__ == "__main__":
     main()
