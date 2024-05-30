@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="filters row mb-4">
+        <div class="col-md-6">
+            <h4>카테고리 필터</h4>
+            <a href="{{ url_for('index', filter_key='category', filter_value='상의', filter_key_2=filter_key_2, filter_value_2=filter_value_2, sort_key=sort_key) }}" class="btn btn-secondary">상의</a>
+            <a href="{{ url_for('index', filter_key='category', filter_value='하의', filter_key_2=filter_key_2, filter_value_2=filter_value_2, sort_key=sort_key) }}" class="btn btn-secondary">하의</a>
+            <a href="{{ url_for('index', filter_key='category', filter_value='아우터', filter_key_2=filter_key_2, filter_value_2=filter_value_2, sort_key=sort_key) }}" class="btn btn-secondary">아우터</a>
+        </div>
+        <div class="col-md-6">
+            <h4>시즌 필터</h4>
+            <a href="{{ url_for('index', filter_key_2='season', filter_value_2='봄', filter_key=filter_key, filter_value=filter_value, sort_key=sort_key) }}" class="btn btn-secondary">봄</a>
+            <a href="{{ url_for('index', filter_key_2='season', filter_value_2='여름', filter_key=filter_key, filter_value=filter_value, sort_key=sort_key) }}" class="btn btn-secondary">여름</a>
+            <a href="{{ url_for('index', filter_key_2='season', filter_value_2='가을', filter_key=filter_key, filter_value=filter_value, sort_key=sort_key) }}" class="btn btn-secondary">가을</a>
+            <a href="{{ url_for('index', filter_key_2='season', filter_value_2='겨울', filter_key=filter_key, filter_value=filter_value, sort_key=sort_key) }}" class="btn btn-secondary">겨울</a>
+        </div>
+    </div>
+
+    <div class="sort-options row mb-4">
+        <div class="col-md-12">
+            <h4>정렬 옵션</h4>
+            <a href="{{ url_for('index', sort_key='name_asc', filter_key=filter_key, filter_value=filter_value, filter_key_2=filter_key_2, filter_value_2=filter_value_2) }}" class="btn btn-secondary">이름 오름차순</a>
+            <a href="{{ url_for('index', sort_key='name_desc', filter_key=filter_key, filter_value=filter_value, filter_key_2=filter_key_2, filter_value_2=filter_value_2) }}" class="btn btn-secondary">이름 내림차순</a>
+            <a href="{{ url_for('index', sort_key='price_asc', filter_key=filter_key, filter_value=filter_value, filter_key_2=filter_key_2, filter_value_2=filter_value_2) }}" class="btn btn-secondary">가격 오름차순</a>
+            <a href="{{ url_for('index', sort_key='price_desc', filter_key=filter_key, filter_value=filter_value, filter_key_2=filter_key_2, filter_value_2=filter_value_2) }}" class="btn btn-secondary">가격 내림차순</a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.price }}원</p>
+                        <p class="card-text"><strong>카테고리:</strong> {{ product.category }}</p>
+                        <p class="card-text"><strong>계절:</strong> {{ product.season | join(', ') }}</p>
+                        <a href="/product/{{ product.id }}" class="btn btn-primary">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

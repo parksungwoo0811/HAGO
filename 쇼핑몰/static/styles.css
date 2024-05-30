@@ -1,0 +1,20 @@
+body {
+    padding-top: 56px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-body h4 {
+    font-size: 1.25rem;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
